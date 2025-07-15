@@ -11,7 +11,7 @@
 _GitVoyant provides a Rich-formatted CLI experience:_
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_cmd_v0_2_0.png" alt="GitVoyant CLI Overview" width="600"/>
+  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_cmd_v0_2_0.png" alt="GitVoyant CLI Overview" width="100%"/>
 </p>
 
 ---

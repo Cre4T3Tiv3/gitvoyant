@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Output Service**: Structured rendering with risk-ranked file listings
 
 ### **Real-World Quality**
-- **Test Coverage**: 65+%  with comprehensive unit, integration, and CLI tests
+- **Test Coverage**: 55+% with comprehensive unit, integration, and CLI tests
 - **Type Safety**: Full type annotations throughout codebase
 - **Error Handling**: Robust error recovery and partial result handling
 - **Logging**: Structured logging with configurable levels

@@ -68,10 +68,10 @@ GitVoyant v0.2.0 is built using **Domain-Driven Design (DDD)** principles with C
 ## 🧪 Quality & Testing Excellence
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_code_cov_71_percent_v0_2_0.png" alt="Test Coverage: 65+% " width="600"/>
+  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_code_cov_71_percent_v0_2_0.png" alt="Test Coverage: 55+%" width="100%"/>
 </p>
 
-**Current Test Coverage: 65+% **
+**Current Test Coverage: 55+%**
 - ✅ **Unit Tests**: Domain entities, value objects, and core algorithms
 - ✅ **Integration Tests**: Full workflow testing with real Git repositories  
 - ✅ **Agent Tests**: AI agent interaction and tool integration
@@ -84,7 +84,7 @@ GitVoyant v0.2.0 is built using **Domain-Driven Design (DDD)** principles with C
 ## 🤖 AI Agent Intelligence in Action
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/agent_demo_v0.2.0.png" alt="AI Agent Temporal Analysis" width="700"/>
+  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/agent_demo_v0.2.0.png" alt="AI Agent Temporal Analysis" width="100%"/>
 </p>
 
 **Live Temporal Intelligence**: The Claude-powered agent provides conversational access to GitVoyant's temporal analysis engine:
@@ -117,7 +117,7 @@ core/business_logic.py: 0.68 (MEDIUM RISK - confidence: 0.4 - limited history)
 * 🏗️ **Domain-Driven Architecture**: Clean separation with rich domain entities
 * 🔮 **Claude + LangChain** integration for natural language interaction
 * 🧠 **AI Agent Runtime**: Conversational temporal intelligence analysis
-* 📊 **Comprehensive Testing**: 65+%  test coverage across all layers
+* 📊 **Comprehensive Testing**: 55+% test coverage across all layers
 
 ---
 
@@ -128,7 +128,7 @@ core/business_logic.py: 0.68 (MEDIUM RISK - confidence: 0.4 - limited history)
 _GitVoyant provides a Rich-formatted CLI experience:_
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_cmd_v0_2_0.png" alt="GitVoyant CLI" width="700"/>
+  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_cmd_v0_2_0.png" alt="GitVoyant CLI" width="100%"/>
 </p>
 
 **Visual Features:**
@@ -143,7 +143,7 @@ _GitVoyant provides a Rich-formatted CLI experience:_
 _Deep temporal analysis with statistical confidence and visual indicators._
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_analyze_temporal_cmd_v0_2_0.png" alt="Temporal Analysis" width="700"/>
+  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_analyze_temporal_cmd_v0_2_0.png" alt="Temporal Analysis" width="100%"/>
 </p>
 
 **What You See:**
@@ -168,7 +168,7 @@ _Deep temporal analysis with statistical confidence and visual indicators._
 _Conversational temporal intelligence powered by Claude AI._
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_analyze_agent_cmd_v0_2_0.png" alt="AI Agent Temporal Analysis" width="700"/>
+  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_analyze_agent_cmd_v0_2_0.png" alt="AI Agent Temporal Analysis" width="100%"/>
 </p>
 
 **Agent Experience:**
@@ -429,7 +429,7 @@ GitVoyant uses temporal pattern evaluation to identify code evolution signatures
 ## 🔬 Research Validation
 
 * ✅ **Temporal Pattern Recognition**: IMPROVING/DECLINING/STABLE classification with statistical rigor
-* ✅ **Confidence Scoring**: Progressive disclosure based on temporal data quality (65+%  test coverage)
+* ✅ **Confidence Scoring**: Progressive disclosure based on temporal data quality (55+% test coverage)
 * ✅ **Statistical Analysis**: Linear regression trend analysis with R-squared validation
 * ✅ **Real-World Ready**: Handles real Git histories and large projects with graceful degradation
 * ✅ **Domain-Driven Design**: Rich entities and value objects encoding business logic
