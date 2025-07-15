@@ -16,7 +16,7 @@
   <a href="https://www.python.org/downloads/">
     <img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python: 3.11+">
   </a>
-    <a href="https://github.com/Cre4T3Tiv3/gitvoyant/releases/tag/v0.2.0">
+  <a href="https://github.com/Cre4T3Tiv3/gitvoyant/releases/tag/v0.2.0">
     <img src="https://img.shields.io/badge/version-v0.2.0-brightgreen" alt="Version: v0.2.0">
   </a>
   <a href="https://github.com/Cre4T3Tiv3/gitvoyant">
@@ -25,6 +25,9 @@
   <a href="https://github.com/Cre4T3Tiv3/gitvoyant/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License: Apache 2.0">
   </a>
+</p>
+
+<p align="center">
   <a href="https://bytestacklabs.com">
     <img src="https://img.shields.io/badge/Made%20by-ByteStack%20Labs-2ea44f" alt="ByteStack Labs">
   </a>
@@ -35,7 +38,6 @@
     <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg" alt="Contributions welcome">
   </a>
 </p>
-
 ---
 
 ## 🚀 Quick Start
