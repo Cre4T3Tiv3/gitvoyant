@@ -1,43 +1,161 @@
-# Python
+# =============================================================================
+# PYTHON
+# =============================================================================
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-build/
+*.egg
+*.egg-info/
+.eggs/
 develop-eggs/
+build/
 dist/
 downloads/
-eggs/
-.eggs/
 lib/
 lib64/
 parts/
 sdist/
 var/
 wheels/
-*.egg-info/
 .installed.cfg
-*.egg
+# PEP 582 local package dir
+__pypackages__/
 
-# Virtual environments
+# =============================================================================
+# VIRTUAL ENVIRONMENTS
+# =============================================================================
 .venv/
 venv/
 env/
 ENV/
+.virtualenv/
 
-# IDE
+# =============================================================================
+# ENVIRONMENT FILES
+# =============================================================================
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# =============================================================================
+# LOGS, CACHE, COVERAGE
+# =============================================================================
+*.log
+coverage.*
+htmlcov/
+.coverage
+.coverage.*
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.tox/
+.nox/
+
+# =============================================================================
+# EDITORS & IDEs
+# =============================================================================
 .vscode/
 .idea/
-*.swp
 *.swo
+*.swp
+*.vim
+*~
+.spyderproject
+.spyproject
+.ropeproject
 
-# OS
+# =============================================================================
+# OS FILES
+# =============================================================================
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+Desktop.ini
 
-# Project specific
+# =============================================================================
+# DOCUMENTATION
+# =============================================================================
+site/
+docs/_build/
+docs/build/
+.sphinx/
+
+# =============================================================================
+# JUPYTER
+# =============================================================================
+.ipynb_checkpoints/
+*.ipynb
+
+# =============================================================================
+# SECURITY & SECRETS
+# =============================================================================
+secrets.yaml
+secrets.yml
+config/secrets.yaml
+config/secrets.yml
+*.pem
+*.key
+*.crt
+*.p12
+
+# =============================================================================
+# TESTING & CI/CD
+# =============================================================================
+.pytest_cache/
+test-results/
+.testmondata
+bandit-report.json
+security-report.json
+
+# =============================================================================
+# TEMPORARY FILES
+# =============================================================================
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+
+# =============================================================================
+# PROJECT-SPECIFIC
+# =============================================================================
 temp_demo_repo/
+test_repos/
+sample_repos/
+cloned_repos/
 !examples/sample_results/*.png
 
-# Note: uv.lock IS committed for reproducible builds
+# GitVoyant temporary analysis files
+.gitvoyant_cache/
+temporal_analysis_*.json
+
+# =============================================================================
+# UV
+# =============================================================================
+# uv.lock is committed — don't ignore
+
+# =============================================================================
+# PACKAGE MANAGERS
+# =============================================================================
+# pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# poetry
+poetry.lock
+!poetry.lock  # Uncomment if you use poetry and want to commit lock file
+
+# pipenv
+Pipfile.lock
+!Pipfile.lock  # Uncomment if you use pipenv and want to commit lock file

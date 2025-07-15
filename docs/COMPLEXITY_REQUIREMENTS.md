@@ -53,7 +53,7 @@ Complexity = 1 + number_of_decision_points
 
 ## Temporal Evaluation Metrics
 
-### 1. Complexity Trend Slope
+### 1. Complexity Tenor Slope
 **Definition**: Rate of complexity change per time unit
 
 **Calculation**:
@@ -62,11 +62,11 @@ slope = linear_regression(time_points, complexity_values)
 ```
 
 **Interpretation**:
-- **Positive slope**: Increasing complexity (risk exposure)
+- **Positive slope**: Increasing complexity (risk)
 - **Negative slope**: Decreasing complexity (refactoring)
 - **Zero slope**: Stable complexity (ideal)
 
-### 2. Volatility Score
+### 2. Volatility Rank
 **Definition**: Standard deviation of complexity changes
 
 **Purpose**:
@@ -104,17 +104,17 @@ growth_rate = (current_complexity - initial_complexity) / initial_complexity
 **Definition**: Number of commits per time period
 
 **Correlation**:
-- High frequency + complexity growth = high risk exposure
+- High frequency + complexity growth = high risk
 - High frequency + stable complexity = healthy iteration
 - Low frequency + complexity growth = technical debt accumulation
 
-## Risk Exposure Assessment Formula
+## Risk Assessment Formula
 
-GitVoyant combines metrics into a unified risk exposure score:
+GitVoyant combines metrics into a unified risk rank:
 
 ```python
-risk_exposure_score = (
-    0.4 * normalized_complexity_trend +
+risk_score = (
+    0.4 * normalized_complexity_tenor +
     0.3 * normalized_volatility +
     0.2 * normalized_growth_rate +
     0.1 * modification_frequency_factor
@@ -123,9 +123,9 @@ risk_exposure_score = (
 
 ### Risk Categories
 
-- **0.0 - 0.3**: Low Risk Exposure(Green)
-- **0.3 - 0.7**: Medium Risk Exposure (Yellow)  
-- **0.7 - 1.0**: High Risk Exposure (Red)
+- **0.0 - 0.3**: Low Risk(Green)
+- **0.3 - 0.7**: Medium Risk (Yellow)  
+- **0.7 - 1.0**: High Risk (Red)
 
 ## Validation
 
@@ -144,7 +144,7 @@ Metrics are being validated against open source projects (alpha research)
 - **Binary files**: Automatically excluded
 
 ### Performance Considerations
-- **Incremental evaluation**: Only analyze new commits
+- **Incremental evaluation**: Only evaluate new commits
 - **Caching**: Store computed metrics to avoid recomputation
 - **Sampling**: For very large repositories, sample commit history
 

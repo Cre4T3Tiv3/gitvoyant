@@ -4,46 +4,76 @@ build-backend = "hatchling.build"
 
 [project]
 name = "gitvoyant"
-version = "0.1.0"
-description = "Temporal Code Intelligence - See Your Code's Future"
+version = "0.2.0"
+description = "AI Agent Platform for Temporal Code Intelligence"
 authors = [{name = "Jesse Moses", email = "jesse@bytestacklabs.com"}]
 license = {text = "Apache-2.0"}
 readme = "README.md"
-requires-python = ">=3.8"
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "License :: OSI Approved :: Apache Software License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-]
+requires-python = ">=3.11"
 dependencies = [
+    # Core GitVoyant Dependencies
     "gitpython>=3.1.0",
     "pandas>=2.0.0",
     "numpy>=1.20.0",
     "matplotlib>=3.5.0",
     "seaborn>=0.11.0",
+    # CLI Framework
+    "typer>=0.9.0",
+    # API & Web Framework
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "python-multipart>=0.0.6",
+    "httpx>=0.25.0",
+    "python-dotenv>=1.0.0",
+    "python-dateutil>=2.8.2",
+    # LangChain & AI Agent Dependencies
+    "langchain>=0.1.0",
+    "langchain-core>=0.1.0",
+    "langchain-community>=0.0.10",
+    "langchain-anthropic>=0.1.0",
+    "langgraph>=0.0.28",
+    # AI Model Integrations
+    "anthropic>=0.18.0",
+    # Additional Agent Tools
+    "tiktoken>=0.6.0",
+    "rich>=13.0.0"
 ]
 
 [project.urls]
 Homepage = "https://github.com/Cre4T3Tiv3/gitvoyant"
 Repository = "https://github.com/Cre4T3Tiv3/gitvoyant"
-Documentation = "https://github.com/Cre4T3Tiv3/gitvoyant/tree/main/docs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gitvoyant"]
 
 [tool.uv]
 dev-dependencies = [
-    "pytest>=7.0.0",
-    "black>=22.0.0",
+    # Testing & Code Quality
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
     "ruff>=0.1.0",
+    # Development Tools
+    "jupyter>=1.0.0",
+    "ipython>=8.0.0",
+    # Documentation
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
 ]
 
-# This is the key fix - tell Hatchling where to find the package
-[tool.hatch.build.targets.wheel]
-packages = ["src"]
+# Optional extras for different AI providers
+[project.optional-dependencies]
+anthropic = ["anthropic>=0.18.0"]
+huggingface = ["transformers>=4.30.0", "torch>=2.0.0"]
+all-ai = [
+    "anthropic>=0.18.0",
+    "transformers>=4.30.0",
+    "torch>=2.0.0",
+    "tiktoken>=0.6.0"
+]
 
 [project.scripts]
-gitvoyant = "src.core.temporal_evaluator:main"
+gitvoyant = "gitvoyant.cli.cli:app"

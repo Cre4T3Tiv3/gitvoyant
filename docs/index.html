@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitVoyant v0.2.0 Architecture</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+
+        .header .subtitle {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .architecture {
+            padding: 40px;
+        }
+
+        .layer {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .layer-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .component {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .component:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #3498db;
+        }
+
+        .component::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #9b59b6);
+        }
+
+        .component h3 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .component-description {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .component-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .component-items li {
+            background: white;
+            margin: 5px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            border-left: 3px solid #3498db;
+            transition: all 0.2s ease;
+        }
+
+        .component-items li:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .data-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .flow-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .flow-arrow {
+            font-size: 1.5em;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .tech-stack {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            margin-top: 40px;
+            border-radius: 15px;
+        }
+
+        .tech-stack h2 {
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tech-category {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-category h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.1em;
+        }
+
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tech-list li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 8px 0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .key-features {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            margin-top: 30px;
+            border-radius: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        .feature p {
+            margin: 0;
+            font-size: 0.9em;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .components {
+                grid-template-columns: 1fr;
+            }
+
+            .data-flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔮 GitVoyant v0.2.0</h1>
+            <div class="subtitle">AI Agent Platform for Temporal Code Intelligence</div>
+        </div>
+
+        <div class="architecture">
+            <!-- Presentation Layer -->
+            <div class="layer">
+                <h2 class="layer-title">📱 Presentation Layer</h2>
+                <div class="components">
+                    <div class="component">
+                        <h3>🖥️ CLI Interface</h3>
+                        <div class="component-description">Rich command-line interface
+                        </div>
+                        <ul class="component-items">
+                            <li>analyze.py - Analysis commands</li>
+                            <li>banner.py - Branded output</li>
+                            <li>cli_output_service.py - Rich formatting</li>
+                            <li>repo_resolver.py - Path resolution</li>
+                            <li>utils.py - Output utilities</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <h3>🤖 AI Agent Interface</h3>
+                        <div class="component-description">Conversational AI integration with Claude and LangChain</div>
+                        <ul class="component-items">
+                            <li>agent_runtime.py - LangGraph agent</li>
+                            <li>langchain_bindings.py - Agent tools</li>
+                            <li>GitVoyantAgentState - State management</li>
+                            <li>Output suppression for clean UI</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Layer -->
+            <div class="layer">
+                <h2 class="layer-title">🏗️ Application Layer</h2>
+                <div class="components">
+                    <div class="component">
+                        <h3>📋 Use Cases</h3>
+                        <div class="component-description">Business logic orchestration and workflow coordination</div>
+                        <ul class="component-items">
+                            <li>AnalyzeFileUseCase - Single file analysis</li>
+                            <li>AnalyzeRepoUseCase - Repository analysis</li>
+                            <li>Clean Architecture patterns</li>
+                            <li>Service coordination</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <h3>📊 DTOs & Services</h3>
+                        <div class="component-description">Data transfer objects and service orchestration</div>
+                        <ul class="component-items">
+                            <li>EvaluationResponse - API responses</li>
+                            <li>TemporalEvaluatorService - High-level service</li>
+                            <li>Result formatting & validation</li>
+                            <li>Error handling & logging</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domain Layer -->
+            <div class="layer">
+                <h2 class="layer-title">🎯 Domain Layer</h2>
+                <div class="components">
+                    <div class="component">
+                        <h3>🏛️ Entities</h3>
+                        <div class="component-description">Core business entities with rich domain behavior</div>
+                        <ul class="component-items">
+                            <li>TemporalEvaluation - Core evaluation entity</li>
+                            <li>Repository - Multi-file aggregate</li>
+                            <li>Flask-like pattern detection</li>
+                            <li>Quality pattern classification</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <h3>💎 Value Objects</h3>
+                        <div class="component-description">Immutable domain concepts with business rules</div>
+                        <ul class="component-items">
+                            <li>ComplexityTrend - Slope & interpretation</li>
+                            <li>ConfidenceRank - Statistical confidence</li>
+                            <li>TimeTable - Temporal windows</li>
+                            <li>Validation & business logic</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infrastructure Layer -->
+            <div class="layer">
+                <h2 class="layer-title">⚡ Infrastructure Layer</h2>
+                <div class="components">
+                    <div class="component">
+                        <h3>🔬 Temporal Evaluator</h3>
+                        <div class="component-description">Core temporal intelligence engine</div>
+                        <ul class="component-items">
+                            <li>TemporalEvaluator - Main analysis engine</li>
+                            <li>Cyclomatic complexity calculation</li>
+                            <li>Linear regression trend analysis</li>
+                            <li>Quality decay forecasting</li>
+                            <li>Confidence scoring</li>
+                        </ul>
+                    </div>
+
+                    <div class="component">
+                        <h3>⚙️ Configuration & Git</h3>
+                        <div class="component-description">System configuration and Git integration</div>
+                        <ul class="component-items">
+                            <li>GitVoyantSettings - Environment config</li>
+                            <li>Git repository access (GitPython)</li>
+                            <li>Commit history processing</li>
+                            <li>File content extraction</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Flow -->
+            <div class="data-flow">
+                <div class="flow-item">User Input</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">CLI/Agent</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Use Cases</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Domain Services</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Temporal Engine</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Git Analysis</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-item">Results</div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="tech-stack">
+            <h2>🛠️ Technology Stack</h2>
+            <div class="tech-grid">
+                <div class="tech-category">
+                    <h3>🐍 Core Python</h3>
+                    <ul class="tech-list">
+                        <li>Python 3.8+</li>
+                        <li>AsyncIO</li>
+                        <li>Dataclasses</li>
+                        <li>Type Hints</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category">
+                    <h3>🔬 Analysis</h3>
+                    <ul class="tech-list">
+                        <li>NumPy</li>
+                        <li>Pandas</li>
+                        <li>AST Parser</li>
+                        <li>GitPython</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category">
+                    <h3>🤖 AI Integration</h3>
+                    <ul class="tech-list">
+                        <li>LangChain</li>
+                        <li>LangGraph</li>
+                        <li>Anthropic Claude</li>
+                        <li>ReAct Agents</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category">
+                    <h3>🖥️ Interface</h3>
+                    <ul class="tech-list">
+                        <li>Typer CLI</li>
+                        <li>Rich Formatting</li>
+                        <li>Click Commands</li>
+                        <li>Colored Output</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category">
+                    <h3>🧪 Testing</h3>
+                    <ul class="tech-list">
+                        <li>Pytest</li>
+                        <li>AsyncIO Testing</li>
+                        <li>Mock Objects</li>
+                        <li>Integration Tests</li>
+                    </ul>
+                </div>
+
+                <div class="tech-category">
+                    <h3>📦 Packaging</h3>
+                    <ul class="tech-list">
+                        <li>setuptools</li>
+                        <li>pip install</li>
+                        <li>Entry points</li>
+                        <li>Dependencies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="key-features">
+            <h2>🌟 Key Features & Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <h4>🔮 Temporal Intelligence</h4>
+                    <p>Code quality analysis through Git history temporal patterns and complexity
+                        evolution tracking.</p>
+                </div>
+
+                <div class="feature">
+                    <h4>🤖 AI Agent Integration</h4>
+                    <p>Conversational interface powered by Claude AI with specialized tools for natural language
+                        repository analysis.</p>
+                </div>
+
+                <div class="feature">
+                    <h4>📊 Predictive Analytics</h4>
+                    <p>Quality decay forecasting with confidence scoring to predict future maintenance needs and
+                        technical debt.</p>
+                </div>
+
+                <div class="feature">
+                    <h4>🏗️ Clean Architecture</h4>
+                    <p>Domain-driven design with clear separation of concerns, value objects, and rich domain entities.
+                    </p>
+                </div>
+
+                <div class="feature">
+                    <h4>🎨 Rich CLI Experience</h4>
+                    <p>Command-line interface with color-coded output, formatted tables, and intuitive
+                        commands.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
