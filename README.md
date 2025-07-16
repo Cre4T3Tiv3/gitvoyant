@@ -86,10 +86,6 @@ GitVoyant v0.2.0 is built using **Domain-Driven Design (DDD)** principles with C
 
 ## 🤖 AI Agent Intelligence in Action
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/agent_demo_v0.2.0.png" alt="AI Agent Temporal Analysis" width="100%"/>
-</p>
-
 **Live Temporal Intelligence**: The Claude-powered agent provides conversational access to GitVoyant's temporal analysis engine:
 
 ```bash
