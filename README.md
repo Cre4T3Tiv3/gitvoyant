@@ -368,7 +368,7 @@ cp .env.example .env
 
 ## 🗺️ Roadmap
 
-### 🎯 v0.3.0 – Multi-LLM & Enhanced Intelligence (Q2 2024)
+### 🎯 v0.3.0 – Multi-LLM & Enhanced Intelligence (Q3 2025)
 
 * 🤖 **Multi-LLM Support**: GPT-4, Gemini, Claude, Local LLMs (Ollama)
 * 🔬 **Advanced Algorithms**: R-squared confidence, trend stability metrics
@@ -376,7 +376,7 @@ cp .env.example .env
 * 📊 **Enhanced Metrics**: Maintainability index, technical debt scoring
 * 🔍 **Pattern Mining**: Cross-repository quality pattern discovery
 
-### 🚀 v0.4.0 – Enterprise Platform (Q3 2024)
+### 🚀 v0.4.0 – Enterprise Platform (Q4 2025)
 
 * 🌐 **Web Dashboard**: Interactive temporal visualization and insights
 * 🔔 **CI/CD Integration**: GitHub Actions, GitLab CI temporal monitoring
@@ -384,7 +384,7 @@ cp .env.example .env
 * 📈 **Predictive Models**: ML-enhanced quality decay forecasting
 * 🎯 **Custom Patterns**: Organization-specific quality pattern recognition
 
-### 🌟 v0.5.0 – AI-Native Development (Q4 2024)
+### 🌟 v0.5.0 – AI-Native Development (Q1 2026)
 
 * 🧠 **Agent Ecosystem**: Specialized agents for different analysis domains
 * 🔮 **Temporal Recommendations**: AI-powered refactoring suggestions
