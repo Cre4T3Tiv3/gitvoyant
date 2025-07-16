@@ -357,8 +357,8 @@ cp .env.example .env
 
 ## 📖 Documentation
 
-- **[User Guide](USER_GUIDE.md)** - Complete setup, usage, and troubleshooting
-- **[Complexity Requirements](docs/Complexity Requirements.md)** - Deep dive into the complexity metrics
+- **[User Guide](USER_GUIDE.md)** - Complete setup, usage, and 
+- **[Complexity Requirements](docs/COMPLEXITY_REQUIREMENTS.md)** - Deep dive into the complexity metrics
 - **[Temporal Analysis Explained](docs/TEMPORAL_ANALYSIS_EXPLAINED.md)** - Deep dive into the science
 
 ---
