@@ -146,7 +146,7 @@ Analyze how code complexity evolves over time in your repository.
 
 **Analyze entire repository:**
 ```bash
-gitvoyant analyze temporal /path/to/your/repo
+gitvoyant analyze temporal /path/to/repo
 ```
 
 **Analyze specific file:**
