@@ -29,7 +29,7 @@ __version__ = "0.2.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 app = typer.Typer(help="🧠 GitVoyant - Temporal Intelligence for Repositories")
-app.add_typer(analyze_app, name="analyze", help="Perform repository analysis tasks")
+app.add_typer(analyze_app, name="analyze", help="Perform repository analysis tasks.")
 
 analyze_app = typer.Typer()
 
