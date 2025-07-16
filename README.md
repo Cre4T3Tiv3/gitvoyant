@@ -34,7 +34,7 @@
   <a href="https://github.com/Cre4T3Tiv3/gitvoyant/stargazers">
     <img src="https://img.shields.io/github/stars/Cre4T3Tiv3/gitvoyant?style=social" alt="GitHub Stars">
   </a>
-  <a href="#contributing" target="_blank">
+  <a href="CONTRIBUTING.md" target="_blank">
     <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg" alt="Contributions welcome">
   </a>
 </p>
@@ -357,7 +357,8 @@ cp .env.example .env
 
 ## 📖 Documentation
 
-- **[User Guide](USER_GUIDE.md)** - Complete setup, usage, and 
+- **[User Guide](USER_GUIDE.md)** - Complete setup, usage, and CLI reference
+- **[Contributing Guide](CONTRIBUTING.md)** - Development setup, guidelines, and contribution opportunities
 - **[Complexity Requirements](docs/COMPLEXITY_REQUIREMENTS.md)** - Deep dive into the complexity metrics
 - **[Temporal Analysis Explained](docs/TEMPORAL_ANALYSIS_EXPLAINED.md)** - Deep dive into the science
 
@@ -456,10 +457,11 @@ History Analysis → Pattern Recognition → Confidence Assessment → Future Gu
 
 ## 🧪 Contributing
 
-GitVoyant advances the **temporal intelligence** layer for AI-assisted development.
+GitVoyant is open source and welcomes contributions! From AI agent enhancements to temporal intelligence research, there are many ways to contribute to the future of code analysis.
 
-### Development Setup
+📋 **[Complete Contributing Guide →](CONTRIBUTING.md)** - Comprehensive guidelines, research areas, and development standards
 
+### Quick Contribution Setup
 ```bash
 git clone https://github.com/Cre4T3Tiv3/gitvoyant.git
 cd gitvoyant
@@ -467,7 +469,7 @@ make bootstrap
 make dev
 ```
 
-📖 **[Complete Development Guide →](USER_GUIDE.md#development-workflow)**
+📖 **[Development Workflow Details →](CONTRIBUTING.md#development-workflow)**
 
 ### Research Areas
 

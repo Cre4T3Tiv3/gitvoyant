@@ -517,7 +517,9 @@ asyncio.run(analyze_repo())
 
 ## Contributing
 
-GitVoyant is open source and welcomes contributions! See the main repository for contribution guidelines, development setup, and coding standards.
+GitVoyant is open source and welcomes contributions! From AI agent enhancements to temporal intelligence research, there are many ways to contribute to the future of code analysis.
+
+📋 **[Complete Contributing Guide →](CONTRIBUTING.md)** - Comprehensive guidelines, research areas, and development standards
 
 ### Quick Contribution Setup
 ```bash
