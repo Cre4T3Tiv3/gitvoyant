@@ -66,7 +66,7 @@ GitVoyant v0.2.0 is built using **Domain-Driven Design (DDD)** principles with C
 
 ---
 
-## 🧪 Quality & Testing Excellence
+## 🧪 QA
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_code_cov_71_percent_v0_2_0.png" alt="Test Coverage: 55+%" width="100%"/>
