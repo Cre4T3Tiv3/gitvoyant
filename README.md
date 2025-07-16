@@ -62,8 +62,6 @@ GitVoyant v0.2.0 is built using **Domain-Driven Design (DDD)** principles with C
 - **📡 Infrastructure Layer**: Core temporal intelligence engine with Git integration and statistical analysis
 - **🎨 Presentation Layer**: CLI interface and AI agent integration with natural language capabilities
 
-📊 **[→ View Interactive Architecture Diagram](https://Cre4T3Tiv3.github.io/gitvoyant/)**
-
 > **Architecture Philosophy**: Clean boundaries between domain logic, infrastructure, and presentation layers enable independent evolution and testing of each component.
 
 ---
@@ -355,13 +353,12 @@ cp .env.example .env
 
 ⚠️ **Note**: Requires `ANTHROPIC_API_KEY` for full AI agent features
 
-📖 **[Complete Installation Guide →](USER_GUIDE.md#installation)**
-
 ---
 
 ## 📖 Documentation
 
 - **[User Guide](USER_GUIDE.md)** - Complete setup, usage, and troubleshooting
+- **[Complexity Requirements](docs/Complexity Requirements.md)** - Deep dive into the complexity metrics
 - **[Temporal Analysis Explained](docs/TEMPORAL_ANALYSIS_EXPLAINED.md)** - Deep dive into the science
 
 ---
