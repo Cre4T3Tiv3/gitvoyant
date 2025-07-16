@@ -151,7 +151,7 @@ gitvoyant analyze temporal /path/to/your/repo
 
 **Analyze specific file:**
 ```bash
-gitvoyant analyze temporal /path/to/repo src/main.py
+gitvoyant analyze temporal /path/to/repo main.py
 ```
 
 **Analyze with custom time window:**
