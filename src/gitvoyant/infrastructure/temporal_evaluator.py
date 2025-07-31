@@ -27,9 +27,7 @@ files using cyclomatic complexity metrics, temporal pattern recognition, and
 statistical trend analysis to identify files at risk of quality degradation.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

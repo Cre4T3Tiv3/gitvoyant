@@ -26,9 +26,7 @@ the evaluator correctly processes real Git data and produces accurate
 temporal analysis results.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

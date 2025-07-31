@@ -25,9 +25,7 @@ This use case encapsulates the business logic for file-level temporal
 analysis, including parameter validation and result formatting.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

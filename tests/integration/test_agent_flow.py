@@ -26,9 +26,7 @@ Tests include error handling for API overload situations and validate
 type safety across the agent interaction boundaries.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

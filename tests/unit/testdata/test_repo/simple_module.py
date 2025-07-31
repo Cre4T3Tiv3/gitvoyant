@@ -27,9 +27,7 @@ This module serves as test data for:
 - Repository evaluation test scenarios
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

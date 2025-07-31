@@ -26,9 +26,7 @@ providing a hierarchical command structure with subcommands for different
 analysis modes and utility functions.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

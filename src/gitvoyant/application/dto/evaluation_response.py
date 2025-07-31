@@ -14,7 +14,6 @@
 # limitations under the License.
 
 Module: src/gitvoyant/application/dto/evaluation_response.py
-
 DTO: EvaluationResponse for API layer
 
 This module defines the EvaluationResponse data transfer object used to
@@ -26,9 +25,7 @@ including quality pattern classification, complexity tenors, confidence levels,
 and actionable recommendations.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

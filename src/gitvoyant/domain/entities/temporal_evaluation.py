@@ -26,9 +26,7 @@ derived from analyzing a file's commit history, complexity evolution, and
 quality trends over time.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

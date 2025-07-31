@@ -38,9 +38,7 @@ Key Features:
     - Formatted results optimized for conversational display
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

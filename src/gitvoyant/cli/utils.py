@@ -25,9 +25,7 @@ This module centralizes CLI output formatting to ensure consistent user
 experience and visual hierarchy throughout the application.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

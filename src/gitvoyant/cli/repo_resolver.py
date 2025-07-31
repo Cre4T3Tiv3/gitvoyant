@@ -25,9 +25,7 @@ This module abstracts the complexity of working with various repository sources,
 ensuring consistent local access regardless of the original repository location.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

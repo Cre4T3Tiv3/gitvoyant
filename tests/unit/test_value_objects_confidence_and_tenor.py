@@ -26,9 +26,7 @@ Tests use parameterized testing to validate behavior across ranges of
 input values, ensuring robust handling of edge cases and boundary conditions.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 

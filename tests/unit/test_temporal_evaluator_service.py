@@ -26,9 +26,7 @@ infrastructure dependencies while ensuring proper coordination
 between service methods and domain objects.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-
 Version: 0.2.0
-
 License: Apache 2.0
 """
 
