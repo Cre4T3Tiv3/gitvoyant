@@ -9,33 +9,45 @@
   </a>
 </p>
 
+<!-- Version & Status Badges -->
 <p align="center">
-  <a href="https://github.com/Cre4T3Tiv3/gitvoyant/actions/workflows/ci.yml" target="_blank">
-    <img src="https://github.com/Cre4T3Tiv3/gitvoyant/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI">
-  </a>
-  <a href="https://www.python.org/downloads/">
-    <img src="https://img.shields.io/badge/python-3.11+-blue.svg" alt="Python: 3.11+">
-  </a>
   <a href="https://github.com/Cre4T3Tiv3/gitvoyant/releases/tag/v0.2.0">
     <img src="https://img.shields.io/badge/version-v0.2.0-brightgreen" alt="Version: v0.2.0">
   </a>
-  <a href="https://github.com/Cre4T3Tiv3/gitvoyant">
-    <img src="https://img.shields.io/badge/status-stable-green.svg" alt="Status: Stable">
-  </a>
-  <a href="https://github.com/Cre4T3Tiv3/gitvoyant/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License: Apache 2.0">
+  <a href="https://github.com/Cre4T3Tiv3/gitvoyant/actions/workflows/ci.yml" target="_blank">
+    <img src="https://github.com/Cre4T3Tiv3/gitvoyant/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI">
   </a>
 </p>
 
+<!-- Programming Languages Badges -->
 <p align="center">
-  <a href="https://bytestacklabs.com">
-    <img src="https://img.shields.io/badge/Made%20by-ByteStack%20Labs-2ea44f" alt="ByteStack Labs">
+  <a href="https://www.python.org/downloads/">
+    <img src="https://img.shields.io/badge/Python-3.11%20|%203.12-3776AB?logo=python&logoColor=white" alt="Python: 3.11 | 3.12">
+</p>
+
+<!-- License & Community Badges -->
+<p align="center">
+  <a href="https://github.com/Cre4T3Tiv3/gitvoyant/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License: Apache 2.0">
   </a>
+  <a href="CONTRIBUTING.md" target="_blank">
+    <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg" alt="Contributions Welcome">
+  </a>    
   <a href="https://github.com/Cre4T3Tiv3/gitvoyant/stargazers">
     <img src="https://img.shields.io/github/stars/Cre4T3Tiv3/gitvoyant?style=social" alt="GitHub Stars">
   </a>
-  <a href="CONTRIBUTING.md" target="_blank">
-    <img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg" alt="Contributions welcome">
+</p>
+
+<!-- Author & Attribution Badges -->
+<p align="center">
+  <a href="https://orcid.org/0009-0006-0322-7974">
+    <img src="https://img.shields.io/badge/ORCID-0009--0006--0322--7974-A6CE39?logo=orcid&logoColor=white" alt="ORCID: 0009-0006-0322-7974">
+  </a>
+  <a href="https://bytestacklabs.com">
+    <img src="https://img.shields.io/badge/Made%20by-ByteStack%20Labs-2ea44f" alt="ByteStack Labs">
+  </a>
+  <a href="https://www.linkedin.com/in/jlmoses/">
+    <img src="https://img.shields.io/badge/LinkedIn-Connect-0077B5?logo=linkedin&logoColor=white" alt="LinkedIn">
   </a>
 </p>
 
