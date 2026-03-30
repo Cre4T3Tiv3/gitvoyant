@@ -24,32 +24,38 @@ _JAVA_LANGUAGE = tree_sitter.Language(tsj.language())
 _PARSER = tree_sitter.Parser(_JAVA_LANGUAGE)
 
 # Node types that contribute to cyclomatic complexity.
-_DECISION_TYPES = frozenset({
-    "if_statement",
-    "for_statement",
-    "enhanced_for_statement",
-    "while_statement",
-    "do_statement",
-    "switch_block_statement_group",
-    "catch_clause",
-    "ternary_expression",
-})
+_DECISION_TYPES = frozenset(
+    {
+        "if_statement",
+        "for_statement",
+        "enhanced_for_statement",
+        "while_statement",
+        "do_statement",
+        "switch_block_statement_group",
+        "catch_clause",
+        "ternary_expression",
+    }
+)
 
 # Logical operators within binary_expression that add a branch.
 _LOGICAL_OPS = frozenset({"&&", "||"})
 
 # Node types counted as function/method definitions.
-_METHOD_TYPES = frozenset({
-    "method_declaration",
-    "constructor_declaration",
-})
+_METHOD_TYPES = frozenset(
+    {
+        "method_declaration",
+        "constructor_declaration",
+    }
+)
 
 # Node types counted as class/interface definitions.
-_CLASS_TYPES = frozenset({
-    "class_declaration",
-    "interface_declaration",
-    "enum_declaration",
-})
+_CLASS_TYPES = frozenset(
+    {
+        "class_declaration",
+        "interface_declaration",
+        "enum_declaration",
+    }
+)
 
 
 def _walk(node):

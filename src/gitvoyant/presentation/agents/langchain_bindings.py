@@ -307,7 +307,10 @@ def make_repo_evaluation_tool() -> Tool:
                     continue
 
                 for file in files:
-                    if any(file.endswith(ext) for ext in exts) and len(results) < max_files:
+                    if (
+                        any(file.endswith(ext) for ext in exts)
+                        and len(results) < max_files
+                    ):
                         full_path = os.path.join(root, file)
                         rel_path = os.path.relpath(full_path, repo_path)
                         if not os.path.exists(os.path.join(repo_path, rel_path)):

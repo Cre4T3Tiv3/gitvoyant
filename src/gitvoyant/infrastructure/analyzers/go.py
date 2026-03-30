@@ -24,28 +24,34 @@ _GO_LANGUAGE = tree_sitter.Language(tsg.language())
 _PARSER = tree_sitter.Parser(_GO_LANGUAGE)
 
 # Node types that contribute to cyclomatic complexity.
-_DECISION_TYPES = frozenset({
-    "if_statement",
-    "for_statement",
-    "expression_case",       # case clauses in switch
-    "communication_case",    # case clauses in select
-    "type_case",             # case clauses in type switch
-})
+_DECISION_TYPES = frozenset(
+    {
+        "if_statement",
+        "for_statement",
+        "expression_case",  # case clauses in switch
+        "communication_case",  # case clauses in select
+        "type_case",  # case clauses in type switch
+    }
+)
 
 # Logical operators within binary_expression that add a branch.
 _LOGICAL_OPS = frozenset({"&&", "||"})
 
 # Node types counted as function/method declarations.
-_FUNC_TYPES = frozenset({
-    "function_declaration",
-    "method_declaration",
-    "func_literal",
-})
+_FUNC_TYPES = frozenset(
+    {
+        "function_declaration",
+        "method_declaration",
+        "func_literal",
+    }
+)
 
 # Node types counted as type definitions (struct, interface).
-_TYPE_TYPES = frozenset({
-    "type_declaration",
-})
+_TYPE_TYPES = frozenset(
+    {
+        "type_declaration",
+    }
+)
 
 
 def _walk(node):
@@ -72,9 +78,7 @@ class GoAnalyzer(Analyzer):
             function_count = sum(
                 1 for n in _walk(tree.root_node) if n.type in _FUNC_TYPES
             )
-            class_count = sum(
-                1 for n in _walk(tree.root_node) if n.type in _TYPE_TYPES
-            )
+            class_count = sum(1 for n in _walk(tree.root_node) if n.type in _TYPE_TYPES)
         except Exception as e:
             logger.debug(f"Parse error in commit {commit.hexsha[:8]}: {e}")
             complexity = 0

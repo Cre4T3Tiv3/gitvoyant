@@ -116,7 +116,12 @@ class TemporalEvaluator:
         window_days (int): Analysis window in days for temporal evaluation.
     """
 
-    def __init__(self, repository_path: str, window_days: int = 180, analyzer: Optional[Analyzer] = None) -> None:
+    def __init__(
+        self,
+        repository_path: str,
+        window_days: int = 180,
+        analyzer: Optional[Analyzer] = None,
+    ) -> None:
         """Initialize the temporal evaluator for a specific repository.
 
         Sets up Git repository access and configures the analysis window for

@@ -23,11 +23,16 @@ _ANALYZERS: Dict[str, Analyzer] = {}
 # Directories to exclude during file discovery, per language.
 EXCLUSION_DIRS: Set[str] = {
     # Python
-    ".venv", "__pycache__", "site-packages",
+    ".venv",
+    "__pycache__",
+    "site-packages",
     # JavaScript / TypeScript
-    "node_modules", "dist", ".next",
+    "node_modules",
+    "dist",
+    ".next",
     # Java
-    "target", ".gradle",
+    "target",
+    ".gradle",
     # Go
     "vendor",
     # General
@@ -64,7 +69,8 @@ def supported_extensions(languages: Optional[List[str]] = None) -> List[str]:
     if languages is None:
         return list(_ANALYZERS.keys())
     return [
-        ext for ext, analyzer in _ANALYZERS.items()
+        ext
+        for ext, analyzer in _ANALYZERS.items()
         if analyzer.language_name in languages
     ]
 

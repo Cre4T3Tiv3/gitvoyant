@@ -24,33 +24,39 @@ _JS_LANGUAGE = tree_sitter.Language(tsjs.language())
 _PARSER = tree_sitter.Parser(_JS_LANGUAGE)
 
 # Node types that contribute to cyclomatic complexity.
-_DECISION_TYPES = frozenset({
-    "if_statement",
-    "for_statement",
-    "for_in_statement",
-    "while_statement",
-    "do_statement",
-    "switch_case",
-    "catch_clause",
-    "ternary_expression",
-})
+_DECISION_TYPES = frozenset(
+    {
+        "if_statement",
+        "for_statement",
+        "for_in_statement",
+        "while_statement",
+        "do_statement",
+        "switch_case",
+        "catch_clause",
+        "ternary_expression",
+    }
+)
 
 # Logical operators within binary_expression that add a branch.
 _LOGICAL_OPS = frozenset({"&&", "||"})
 
 # Node types counted as function definitions.
-_FUNCTION_TYPES = frozenset({
-    "function_declaration",
-    "function_expression",
-    "arrow_function",
-    "method_definition",
-    "generator_function_declaration",
-})
+_FUNCTION_TYPES = frozenset(
+    {
+        "function_declaration",
+        "function_expression",
+        "arrow_function",
+        "method_definition",
+        "generator_function_declaration",
+    }
+)
 
 # Node types counted as class definitions.
-_CLASS_TYPES = frozenset({
-    "class_declaration",
-})
+_CLASS_TYPES = frozenset(
+    {
+        "class_declaration",
+    }
+)
 
 
 def _walk(node):

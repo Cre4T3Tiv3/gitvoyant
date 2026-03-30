@@ -112,7 +112,9 @@ def analyze_temporal(
                 raise typer.Exit(code=1)
 
         languages = [language] if language else None
-        asyncio.run(_analyze_temporal_async(repo_input, file_path, window_days, languages))
+        asyncio.run(
+            _analyze_temporal_async(repo_input, file_path, window_days, languages)
+        )
         success("Temporal evaluation complete.")
 
     except typer.Exit:
@@ -123,7 +125,9 @@ def analyze_temporal(
 
 
 async def _analyze_temporal_async(
-    repo_input: str, file_path: Optional[str], window_days: int,
+    repo_input: str,
+    file_path: Optional[str],
+    window_days: int,
     languages: Optional[list[str]] = None,
 ):
     """Asynchronous implementation of temporal evaluation logic.
@@ -237,9 +241,7 @@ def launch_agent():
 
     agent = create_gitvoyant_agent()
 
-    typer.echo(
-        "\nAI agent initialized. Ask anything about repo quality or code decay."
-    )
+    typer.echo("\nAI agent initialized. Ask anything about repo quality or code decay.")
     typer.echo("Type 'exit' or 'q' to quit.\n")
 
     while True:

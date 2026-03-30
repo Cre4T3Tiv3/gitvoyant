@@ -234,9 +234,7 @@ def check_configuration() -> None:
 
     api_status = settings.validate_api_keys()
     logger.info("API Keys:")
-    logger.info(
-        f"  Anthropic: {'Configured' if api_status['claude'] else 'Missing'}"
-    )
+    logger.info(f"  Anthropic: {'Configured' if api_status['claude'] else 'Missing'}")
 
     if not api_status["any_configured"]:
         logger.warning("No AI API keys configured.")
