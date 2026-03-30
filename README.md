@@ -1,5 +1,22 @@
 Temporal Code Intelligence platform. Time-series analysis on Git commit history to surface quality evolution, complexity trends, and maintenance risk before they become production incidents. Supports Python, JavaScript, Java, and Go.
 
+<p align="center">
+  <a href="https://github.com/Cre4T3Tiv3/gitvoyant" target="_blank">
+    <img src="https://raw.githubusercontent.com/Cre4T3Tiv3/gitvoyant/main/docs/assets/gitvoyant_latest_v0.3.0.png" alt="GitVoyant v0.3.0" width="640"/>
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/Cre4T3Tiv3/gitvoyant/releases/tag/v0.3.0">
+    <img src="https://img.shields.io/badge/version-v0.3.0-brightgreen" alt="Version: v0.3.0">
+  </a>
+  <a href="https://github.com/Cre4T3Tiv3/gitvoyant/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License: Apache 2.0">
+  </a>
+  <a href="https://orcid.org/0009-0006-0322-7974">
+    <img src="https://img.shields.io/badge/ORCID-0009--0006--0322--7974-A6CE39?logo=orcid&logoColor=white" alt="ORCID: 0009-0006-0322-7974">
+  </a>
+</p>
+
 ---
 
 ## What It Does
