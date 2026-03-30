@@ -25,7 +25,7 @@ This module abstracts the complexity of working with various repository sources,
 ensuring consistent local access regardless of the original repository location.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -35,7 +35,7 @@ from urllib.parse import urlparse
 
 from git import Repo
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 
@@ -76,13 +76,13 @@ def resolve_repo_path(repo_input: str) -> Path:
 
          >>> # Remote repository (first time)
          >>> path = resolve_repo_path("https://github.com/user/project.git")
-         ⬇️  Cloning https://github.com/user/project.git into /tmp/gitvoyant_project ...
+         > Cloning https://github.com/user/project.git into /tmp/gitvoyant_project ...
          >>> print(path)
          /tmp/gitvoyant_project
 
          >>> # Remote repository (subsequent access)
          >>> path = resolve_repo_path("https://github.com/user/project.git")
-         📦 Reusing existing clone: /tmp
+         Repository reusing existing clone: /tmp
     """
     if repo_input.startswith("http://") or repo_input.startswith("https://"):
         parsed = urlparse(repo_input)
@@ -90,10 +90,10 @@ def resolve_repo_path(repo_input: str) -> Path:
         temp_dir = Path(tempfile.gettempdir()) / f"gitvoyant_{name}"
 
         if not temp_dir.exists():
-            print(f"⬇️  Cloning {repo_input} into {temp_dir} ...")
+            print(f"> Cloning {repo_input} into {temp_dir} ...")
             Repo.clone_from(repo_input, temp_dir)
         else:
-            print(f"📦 Reusing existing clone: {temp_dir}")
+            print(f"Repository reusing existing clone: {temp_dir}")
 
         return temp_dir
     else:

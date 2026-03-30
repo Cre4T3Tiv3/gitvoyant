@@ -20,13 +20,13 @@ Agent Integration Flow Tests
 Integration tests for the GitVoyant AI agent, validating the complete
 agent workflow from initialization through prompt processing and response
 generation. These tests ensure the agent correctly integrates with
-Claude AI and GitVoyant's specialized tools.
+the LLM backend and GitVoyant's specialized tools.
 
 Tests include error handling for API overload situations and validate
 type safety across the agent interaction boundaries.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -40,7 +40,7 @@ from gitvoyant.application.agent_runtime import (
     create_gitvoyant_agent,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 

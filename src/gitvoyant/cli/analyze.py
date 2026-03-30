@@ -25,7 +25,7 @@ This module implements the 'analyze' subcommand group, offering specialized
 analysis modes for different GitVoyant use cases.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -42,7 +42,7 @@ from gitvoyant.domain.services.temporal_evaluator_service import (
     TemporalEvaluatorService,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 analyze_app = typer.Typer()
@@ -58,6 +58,11 @@ def analyze_temporal(
     window_days: int = typer.Option(
         180,
         help="Days of commit history to analyze",
+        rich_help_panel="Advanced Options",
+    ),
+    language: Optional[str] = typer.Option(
+        None,
+        help="Restrict analysis to a specific language (python, javascript, java, go). Default: auto-detect all.",
         rich_help_panel="Advanced Options",
     ),
 ):
@@ -106,8 +111,9 @@ def analyze_temporal(
                 error(f"Target file does not exist: {target_file}")
                 raise typer.Exit(code=1)
 
-        asyncio.run(_analyze_temporal_async(repo_input, file_path, window_days))
-        success("Temporal evaluation complete ✅")
+        languages = [language] if language else None
+        asyncio.run(_analyze_temporal_async(repo_input, file_path, window_days, languages))
+        success("Temporal evaluation complete.")
 
     except typer.Exit:
         raise
@@ -117,7 +123,8 @@ def analyze_temporal(
 
 
 async def _analyze_temporal_async(
-    repo_input: str, file_path: Optional[str], window_days: int
+    repo_input: str, file_path: Optional[str], window_days: int,
+    languages: Optional[list[str]] = None,
 ):
     """Asynchronous implementation of temporal evaluation logic.
 
@@ -128,11 +135,12 @@ async def _analyze_temporal_async(
         repo_input (str): Path or URL to the Git repository.
         file_path (Optional[str]): Target file path for analysis, or None.
         window_days (int): Analysis window in days.
+        languages (Optional[list[str]]): Restrict to these languages.
 
     Raises:
         typer.Exit: Exits with code 1 if analysis encounters errors.
     """
-    service = TemporalEvaluatorService()
+    service = TemporalEvaluatorService(languages=languages)
 
     if file_path:
         result = await service.evaluate_file(file_path, repo_input)
@@ -145,6 +153,12 @@ async def _analyze_temporal_async(
 
     from gitvoyant.application.dto.evaluation_response import EvaluationResponse
 
+    from gitvoyant.infrastructure.analyzers import get_analyzer
+
+    def _detect_language(fpath: str) -> str:
+        a = get_analyzer(fpath)
+        return a.language_name if a else "unknown"
+
     if file_path:
         responses = [
             EvaluationResponse(
@@ -156,6 +170,7 @@ async def _analyze_temporal_async(
                 ),
                 commits_evaluated=int(result.get("commits_evaluated", 0)),
                 risk_level=str(result.get("exposure_level", "UNKNOWN")),
+                language=_detect_language(str(result.get("file_path", file_path))),
                 description="Automated temporal complexity analysis result.",
                 recommendations=[],
             )
@@ -164,7 +179,7 @@ async def _analyze_temporal_async(
     else:
         responses = [
             EvaluationResponse(
-                file_path=item.get("file_path", "unknown.py"),
+                file_path=item.get("file_path", "unknown"),
                 complexity_tenor_slope=float(item.get("complexity_trend_slope", 0.0)),
                 quality_pattern="",
                 confidence_rank=round(
@@ -172,6 +187,7 @@ async def _analyze_temporal_async(
                 ),
                 commits_evaluated=int(item.get("commits_evaluated", 0)),
                 risk_level=str(item.get("exposure_level", "UNKNOWN")),
+                language=_detect_language(item.get("file_path", "")),
                 description="Automated temporal complexity analysis result.",
                 recommendations=[],
             )
@@ -192,7 +208,7 @@ def launch_agent():
     """Launch the GitVoyant AI agent for interactive repository analysis.
 
     Starts an interactive session with the GitVoyant AI agent, powered by
-    Claude AI and equipped with specialized tools for repository analysis.
+    an AI model and equipped with specialized tools for repository analysis.
     The agent can perform temporal evaluations, assess code quality patterns,
     and provide insights through natural language conversation.
 
@@ -209,11 +225,11 @@ def launch_agent():
 
     Example:
         $ gitvoyant analyze agent
-        🧠 Claude agent initialized. Ask anything about repo quality or code decay.
+        AI agent initialized. Ask anything about repo quality or code decay.
         Type 'exit' or 'q' to quit.
 
-        💬 You: How is the quality trending in my main application file?
-        🤖 Claude: I'll analyze that for you...
+        > You: How is the quality trending in my main application file?
+        > GitVoyant: I'll analyze that for you...
     """
     print_banner(executed_command="gitvoyant analyze agent")
 
@@ -222,19 +238,19 @@ def launch_agent():
     agent = create_gitvoyant_agent()
 
     typer.echo(
-        "\n🧠 Claude agent initialized. Ask anything about repo quality or code decay."
+        "\nAI agent initialized. Ask anything about repo quality or code decay."
     )
     typer.echo("Type 'exit' or 'q' to quit.\n")
 
     while True:
-        user_input = typer.prompt("💬 You")
+        user_input = typer.prompt("> You")
         if user_input.lower() in {"exit", "q"}:
-            typer.echo("👋 Goodbye!")
+            typer.echo("Goodbye.")
             break
 
         try:
             result = agent.invoke({"input": user_input})
             response = result.get("output", "[No response]")
-            typer.echo(f"\n🤖 Claude: {response}\n")
+            typer.echo(f"\n> GitVoyant: {response}\n")
         except Exception as e:
-            typer.echo(f"❌ Error: {e}")
+            typer.echo(f"Error: {e}")

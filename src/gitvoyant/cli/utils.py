@@ -25,13 +25,13 @@ This module centralizes CLI output formatting to ensure consistent user
 experience and visual hierarchy throughout the application.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
 from rich.console import Console
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 _console = Console()
@@ -63,7 +63,7 @@ def success(msg: str):
         msg (str): The success message to display to the user.
 
     Example:
-        >>> success("Temporal evaluation complete ✅")
+        >>> success("Temporal evaluation complete.")
         # Displays in green with bold formatting
     """
     _console.print(f"[bold green]{msg}[/]")

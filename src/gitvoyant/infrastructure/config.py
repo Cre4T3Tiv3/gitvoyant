@@ -18,7 +18,7 @@ Module: src/gitvoyant/infrastructure/config.py
 Configuration module for GitVoyant platform.
 
 Provides environment-based configuration management for the GitVoyant temporal
-code intelligence platform. Supports AI model integration (Claude),
+code intelligence platform. Supports AI model integration,
 API server settings, temporal evaluation parameters, and agent configuration.
 
 This module implements a simple, dependency-free configuration system that
@@ -26,7 +26,7 @@ loads settings from environment variables with sensible defaults, enabling
 flexible deployment across different environments.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -43,7 +43,7 @@ logging.basicConfig(
     handlers=[logging.StreamHandler(sys.stdout)],
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ class GitVoyantSettings:
     for configuration verification.
 
     The settings class organizes configuration into logical groups:
-    - AI model configuration (Claude)
+    - AI model configuration
     - API server settings
     - Temporal evaluation parameters
     - Agent behavior configuration
@@ -88,9 +88,9 @@ class GitVoyantSettings:
         """
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
 
-        self.claude_model = os.getenv("CLAUDE_MODEL", "claude-3-5-sonnet-20241022")
+        self.claude_model = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5-20250929")
         self.claude_temperature = float(os.getenv("CLAUDE_TEMPERATURE", "0.1"))
-        self.claude_max_tokens = int(os.getenv("CLAUDE_MAX_TOKENS", "4000"))
+        self.claude_max_tokens = int(os.getenv("CLAUDE_MAX_TOKENS", "8192"))
         self.verbose_mode: bool = False
         self.default_window_days = int(
             os.getenv("GITVOYANT_DEFAULT_WINDOW_DAYS", "180")
@@ -107,6 +107,13 @@ class GitVoyantSettings:
         self.agent_verbose = os.getenv("AGENT_VERBOSE", "true").lower() == "true"
         self.agent_max_iterations = int(os.getenv("AGENT_MAX_ITERATIONS", "3"))
 
+        self.supported_languages = [
+            lang.strip()
+            for lang in os.getenv(
+                "GITVOYANT_SUPPORTED_LANGUAGES", "python,javascript,java,go"
+            ).split(",")
+        ]
+
     def validate_api_keys(self) -> dict:
         """Check whether required AI API keys are present and configured.
 
@@ -115,7 +122,7 @@ class GitVoyantSettings:
 
         Returns:
             dict: Dictionary containing validation results with keys:
-                - claude (bool): True if Anthropic Claude API key is configured
+                - claude (bool): True if Anthropic API key is configured
                 - any_configured (bool): True if at least one API key is available
 
         Example:
@@ -124,7 +131,7 @@ class GitVoyantSettings:
             >>> if not status['any_configured']:
             ...     print("No AI API keys configured!")
             >>> elif status['claude']:
-            ...     print("Claude API is ready")
+            ...     print("Anthropic API is ready")
         """
         return {
             "claude": bool(self.anthropic_api_key),
@@ -132,22 +139,22 @@ class GitVoyantSettings:
         }
 
     def get_claude_config(self) -> dict:
-        """Get Claude-related API configuration for model initialization.
+        """Get LLM API configuration for model initialization.
 
-        Assembles all Claude-specific configuration parameters into a
-        dictionary suitable for passing to Claude API initialization.
+        Assembles LLM-specific configuration parameters into a
+        dictionary suitable for passing to model API initialization.
 
         Returns:
-            dict: Claude configuration containing:
+            dict: LLM configuration containing:
                 - api_key (str): Anthropic API key for authentication
-                - model (str): Claude model identifier
+                - model (str): Model identifier
                 - temperature (float): Sampling temperature for responses
                 - max_tokens (int): Maximum token limit for responses
 
         Example:
             >>> settings = GitVoyantSettings()
             >>> config = settings.get_claude_config()
-            >>> claude_client = ChatAnthropic(**config)
+            >>> llm_client = ChatAnthropic(**config)
         """
         return {
             "api_key": self.anthropic_api_key,
@@ -219,7 +226,7 @@ def check_configuration() -> None:
         GitVoyant Configuration Status
         ========================================
         API Keys:
-          Claude (Anthropic): Configured
+          Anthropic: Configured
         ...
     """
     logger.info("GitVoyant Configuration Status")
@@ -228,7 +235,7 @@ def check_configuration() -> None:
     api_status = settings.validate_api_keys()
     logger.info("API Keys:")
     logger.info(
-        f"  Claude (Anthropic): {'Configured' if api_status['claude'] else 'Missing'}"
+        f"  Anthropic: {'Configured' if api_status['claude'] else 'Missing'}"
     )
 
     if not api_status["any_configured"]:
@@ -236,14 +243,14 @@ def check_configuration() -> None:
         logger.warning(
             "To proceed, add keys to the .env file or environment variables."
         )
-        logger.warning("Get a Claude API key at: https://console.anthropic.com/")
+        logger.warning("Get an API key at: https://console.anthropic.com/")
 
     logger.info("\nCore Settings:")
     logger.info(f"  Evaluation Window: {settings.default_window_days} days")
     logger.info(f"  Log Level: {settings.log_level}")
     logger.info(f"  Minimum Commits Required: {settings.min_commits_required}")
 
-    logger.info("\nClaude Configuration:")
+    logger.info("\nLLM Configuration:")
     logger.info(f"  Model: {settings.claude_model}")
     logger.info(f"  Temperature: {settings.claude_temperature}")
     logger.info(f"  Max Tokens: {settings.claude_max_tokens}")

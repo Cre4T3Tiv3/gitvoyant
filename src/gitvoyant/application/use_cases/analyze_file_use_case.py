@@ -25,7 +25,7 @@ This use case encapsulates the business logic for file-level temporal
 analysis, including parameter validation and result formatting.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -36,7 +36,7 @@ from gitvoyant.domain.services.temporal_evaluator_service import (
     TemporalEvaluatorService,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 

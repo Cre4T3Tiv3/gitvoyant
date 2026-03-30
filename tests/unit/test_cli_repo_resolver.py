@@ -26,7 +26,7 @@ Tests use mocking to avoid actual network operations while validating
 the complete resolution logic and caching behavior.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -38,7 +38,7 @@ import pytest
 
 from gitvoyant.cli.repo_resolver import resolve_repo_path
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 

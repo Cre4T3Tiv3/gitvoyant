@@ -15,11 +15,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 Module: src/gitvoyant/__init__.py
-GitVoyant v0.2.0 - Temporal Code Intelligence Platform
-Real-World Ready evolution of proven temporal evaluation research
+GitVoyant v0.3.0 - Temporal Code Intelligence Platform
 """
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3)"
 __email__ = "jesse@bytestacklabs.com"
 

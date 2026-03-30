@@ -26,7 +26,7 @@ derived from analyzing a file's commit history, complexity evolution, and
 quality trends over time.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -38,7 +38,7 @@ from ..value_objects.complexity_tenor import ComplexityTrend
 from ..value_objects.confidence_rank import ConfidenceRank
 from ..value_objects.time_table import TimeTable
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 
@@ -98,6 +98,7 @@ class TemporalEvaluation:
     quality_pattern: str
     risk_level: str
     exposure_level: str
+    language: str = "python"
     evaluation_timestamp: datetime = field(default_factory=datetime.now)
     analysis_duration_ms: Optional[int] = None
     git_history_depth: int = 0

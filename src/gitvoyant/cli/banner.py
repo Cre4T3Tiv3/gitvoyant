@@ -25,7 +25,7 @@ This module handles terminal width detection, responsive layout, and consistent
 branding across different CLI contexts.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -35,7 +35,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 
@@ -68,8 +68,8 @@ def print_banner(executed_command: Optional[str] = None, width: Optional[int] = 
     terminal_width = console.size.width
 
     banner = Text(justify="center")
-    banner.append("🔮 GitVoyant", style="bold cyan")
-    banner.append("  v0.2.0\n", style="magenta")
+    banner.append("GitVoyant", style="bold cyan")
+    banner.append("  v0.3.0\n", style="magenta")
     banner.append("AI Agent Platform for Temporal Code Intelligence\n", style="white")
 
     panel = Panel(

@@ -26,7 +26,7 @@ infrastructure dependencies while ensuring proper coordination
 between service methods and domain objects.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -42,7 +42,7 @@ from gitvoyant.domain.services.temporal_evaluator_service import (
 )
 from gitvoyant.infrastructure.temporal_evaluator import TemporalDiscernment
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 

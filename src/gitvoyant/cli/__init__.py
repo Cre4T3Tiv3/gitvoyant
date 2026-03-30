@@ -16,7 +16,7 @@ limitations under the License.
 
 Module: src/gitvoyant/cli/__init__.py
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 

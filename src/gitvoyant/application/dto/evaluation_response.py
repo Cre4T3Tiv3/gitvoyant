@@ -25,7 +25,7 @@ including quality pattern classification, complexity tenors, confidence levels,
 and actionable recommendations.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -34,7 +34,7 @@ from typing import List
 
 from ...domain.entities.temporal_evaluation import TemporalEvaluation
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 
@@ -73,6 +73,7 @@ class EvaluationResponse:
     confidence_rank: float
     commits_evaluated: int
     risk_level: str
+    language: str
     description: str
     recommendations: List[str]
 
@@ -106,6 +107,7 @@ class EvaluationResponse:
             confidence_rank=evaluation.confidence_rank.value,
             commits_evaluated=evaluation.commits_evaluated,
             risk_level=evaluation.risk_level,
+            language=evaluation.language,
             description=evaluation.complexity_tenor.description,
             recommendations=cls._generate_recommendations(evaluation),
         )

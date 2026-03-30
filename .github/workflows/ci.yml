@@ -1,4 +1,4 @@
-name: 🔮 GitVoyant CI/CD
+name: GitVoyant CI/CD
 on:
   push:
     branches: [ main, develop ]
@@ -7,12 +7,12 @@ on:
 
 jobs:
   lint-and-format:
-    name: 🔍 Lint & Format Check
+    name: Lint & Format Check
     runs-on: ubuntu-latest
     steps:
-    - name: 📥 Checkout Code
+    - name: Checkout Code
       uses: actions/checkout@v4
-    - name: 🐍 Set up Python 3.11
+    - name: Set up Python 3.11
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
@@ -20,30 +20,30 @@ jobs:
       run: |
         curl -LsSf https://astral.sh/uv/install.sh | sh
         echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-    - name: 🔧 Bootstrap Environment
+    - name: Bootstrap Environment
       run: make bootstrap
-    - name: 🧪 Install Dev Dependencies
+    - name: Install Dev Dependencies
       run: make dev
-    - name: 🔍 Run Linting
+    - name: Run Linting
       run: make lint
-    - name: ✨ Check Formatting
+    - name: Check Formatting
       run: |
         make format
         # Check if formatting changed anything
-        git diff --exit-code || (echo "❌ Code is not properly formatted. Run 'make format' locally." && exit 1)
+        git diff --exit-code || (echo " Code is not properly formatted. Run 'make format' locally." && exit 1)
 
   test:
-    name: 🧪 Test Suite
+    name: Test Suite
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ['3.11', '3.12']
     steps:
-    - name: 📥 Checkout Code
+    - name: Checkout Code
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - name: 🐍 Set up Python ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
@@ -51,20 +51,20 @@ jobs:
       run: |
         curl -LsSf https://astral.sh/uv/install.sh | sh
         echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-    - name: 🔧 Bootstrap Environment
+    - name: Bootstrap Environment
       run: make bootstrap
-    - name: 🧪 Install Dev Dependencies
+    - name: Install Dev Dependencies
       run: make dev
-    - name: 🔬 Run Unit Tests
+    - name: Run Unit Tests
       run: make test-unit
-    - name: 🔗 Run Integration Tests
+    - name: Run Integration Tests
       env:
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       run: make test-integration
     # TODO: Fix CLI tests in future release
-    # - name: 💻 Run CLI Tests
+    # - name: Run CLI Tests
     #   run: make test-cli
-    - name: 📊 Generate Coverage Report (excluding CLI tests)
+    - name: Generate Coverage Report (excluding CLI tests)
       env:
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       run: |
@@ -73,14 +73,14 @@ jobs:
 
   # TODO: Re-enable CLI integration tests in future release
   # cli-integration:
-  #   name: 🖥️ CLI Integration Test
+  #   name: CLI Integration Test
   #   runs-on: ubuntu-latest
   #   steps:
-  #   - name: 📥 Checkout Code
+  #   - name: Checkout Code
   #     uses: actions/checkout@v4
   #     with:
   #       fetch-depth: 0
-  #   - name: 🐍 Set up Python 3.11
+  #   - name: Set up Python 3.11
   #     uses: actions/setup-python@v4
   #     with:
   #       python-version: '3.11'
@@ -88,46 +88,46 @@ jobs:
   #     run: |
   #       curl -LsSf https://astral.sh/uv/install.sh | sh
   #       echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-  #   - name: 🔧 Bootstrap Environment
+  #   - name: Bootstrap Environment
   #     run: make bootstrap
-  #   - name: 🧪 Test CLI Installation
+  #   - name: Test CLI Installation
   #     run: |
   #       source .venv/bin/activate
   #       gitvoyant --help
   #       gitvoyant version
-  #   - name: 🔮 Test Temporal Analysis
+  #   - name: Test Temporal Analysis
   #     run: |
   #       source .venv/bin/activate
   #       # Test temporal analysis on this repo
   #       gitvoyant analyze temporal . --window-days 30
-  #   - name: 🤖 Test Agent Mode
+  #   - name: Test Agent Mode
   #     env:
   #       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
   #     run: |
   #       source .venv/bin/activate
   #       # Test that agent can start (but don't run interactive session)
   #       if [ -n "$ANTHROPIC_API_KEY" ]; then
-  #         echo "🤖 Testing agent mode with API key..."
+  #         echo " Testing agent mode with API key..."
   #         timeout 10s gitvoyant analyze agent || true
   #       else
-  #         echo "⚠️ Skipping agent tests - no API key available"
+  #         echo "⚠ Skipping agent tests - no API key available"
   #       fi
 
   security:
-    name: 🔒 Security Scan
+    name: Security Scan
     runs-on: ubuntu-latest
     steps:
-    - name: 📥 Checkout Code
+    - name: Checkout Code
       uses: actions/checkout@v4
-    - name: 🐍 Set up Python 3.11
+    - name: Set up Python 3.11
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    - name: 🔒 Run Bandit Security Scan
+    - name: Run Bandit Security Scan
       run: |
         pip install bandit[toml]
         bandit -r src/ -f json -o bandit-report.json || true
-    - name: 📋 Upload Security Report
+    - name: Upload Security Report
       uses: actions/upload-artifact@v4
       with:
         name: security-report

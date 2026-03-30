@@ -15,7 +15,7 @@
 
 Module: src/gitvoyant/domain/services/temporal_evaluator_service.py
 
-GitVoyant v0.2.0 – TemporalEvaluatorService
+GitVoyant v0.3.0 – TemporalEvaluatorService
 
 Service layer exposing structured temporal intelligence over Git repositories.
 Provides high-level orchestration for repository analysis, file evaluation,
@@ -25,7 +25,7 @@ This service abstracts the complexity of temporal evaluation infrastructure
 and provides a clean interface for higher-level application components.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -33,12 +33,13 @@ import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
+from gitvoyant.infrastructure.analyzers import is_excluded_dir, supported_extensions
 from gitvoyant.infrastructure.temporal_evaluator import (
     TemporalDiscernment,
     TemporalEvaluator,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 logger = logging.getLogger(__name__)
@@ -60,15 +61,17 @@ class TemporalEvaluatorService:
             Determines how far back in commit history to analyze for trends.
     """
 
-    def __init__(self, window_days: int = 180):
+    def __init__(self, window_days: int = 180, languages: Optional[List[str]] = None):
         """Initialize the temporal evaluator service.
 
         Args:
             window_days (int, optional): Number of days of commit history to
-                analyze by default. Larger windows provide more stable trends
-                but may include less relevant historical data. Defaults to 180.
+                analyze by default. Defaults to 180.
+            languages (Optional[List[str]]): Restrict analysis to these
+                language names. None means all registered languages.
         """
         self.window_days = window_days
+        self._languages = languages
 
     async def evaluate_repository(
         self, repo_path: Union[str, Path], max_files: int = 50
@@ -109,18 +112,21 @@ class TemporalEvaluatorService:
         evaluator = TemporalEvaluator(str(path), window_days=self.window_days)
 
         results = []
-        for file in path.rglob("*.py"):
-            if ".venv" in str(file) or "__pycache__" in str(file):
-                continue
+        for ext in supported_extensions(self._languages):
+            for file in path.rglob(f"*{ext}"):
+                if is_excluded_dir(str(file)):
+                    continue
 
-            try:
-                outcome = evaluator.evaluate_file_evolution(str(file))
-                if "error" not in outcome:
-                    results.append(outcome)
-            except Exception as e:
-                logger.warning(f"[skip] {file}: {e}")
-                continue
+                try:
+                    outcome = evaluator.evaluate_file_evolution(str(file))
+                    if "error" not in outcome:
+                        results.append(outcome)
+                except Exception as e:
+                    logger.warning(f"[skip] {file}: {e}")
+                    continue
 
+                if len(results) >= max_files:
+                    break
             if len(results) >= max_files:
                 break
 

@@ -25,7 +25,7 @@ This module handles the presentation layer for analysis results, ensuring
 consistent and visually appealing output across different CLI contexts.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -39,7 +39,7 @@ from rich.table import Table
 
 from gitvoyant.application.dto.evaluation_response import EvaluationResponse
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 console = Console()
@@ -49,7 +49,7 @@ def color_for_score(score: float) -> tuple[str, Style]:
     """Determine appropriate color coding and emoji for complexity scores.
 
     Maps numerical complexity scores to visual indicators, providing intuitive
-    color coding and emoji representations for quick assessment of code quality
+    color coding and text marker representations for quick assessment of code quality
     trends.
 
     Args:
@@ -60,21 +60,21 @@ def color_for_score(score: float) -> tuple[str, Style]:
 
     Returns:
         tuple[str, Style]: A tuple containing:
-            - str: Emoji indicator (🟢 for decreasing complexity, 🟡 for stable, 🔴 for increasing)
+            - str: Text indicator ([+] for decreasing complexity, [~] for stable, [-] for increasing)
             - Style: Rich style object with appropriate color and formatting
 
     Note:
         Score interpretation:
-        - score > 0.25: Positive complexity decrease (green 🟢)
-        - score < -0.25: Concerning complexity increase (red 🔴)
-        - -0.25 <= score <= 0.25: Stable complexity (yellow 🟡)
+        - score > 0.25: Positive complexity decrease (green [+])
+        - score < -0.25: Concerning complexity increase (red [-])
+        - -0.25 <= score <= 0.25: Stable complexity (yellow [~])
     """
     if score > 0.25:
-        return "🟢", Style(color="green", bold=True)
+        return "[+]", Style(color="green", bold=True)
     elif score < -0.25:
-        return "🔴", Style(color="red", bold=True)
+        return "[-]", Style(color="red", bold=True)
     else:
-        return "🟡", Style(color="yellow", bold=True)
+        return "[~]", Style(color="yellow", bold=True)
 
 
 def render_repo_evaluation(
@@ -127,17 +127,18 @@ def render_repo_evaluation(
     print_banner(executed_command=executed_command, width=content_width)
 
     if cached_path:
-        console.print(f"[dim]✓ Using cached repo at {cached_path}[/dim]\n")
+        console.print(f"[dim]* Using cached repo at {cached_path}[/dim]\n")
 
     info_table = Table.grid(padding=(0, 2))
-    info_table.add_row("🔍", f"[bold]Repository:[/bold] {repo_url}")
-    info_table.add_row("📊", f"[bold]Health Score:[/bold] {score:.2f}")
-    info_table.add_row("📂", f"[bold]Evaluated Files:[/bold] {len(responses)}")
+    info_table.add_row("", f"[bold]Repository:[/bold] {repo_url}")
+    info_table.add_row("", f"[bold]Health Score:[/bold] {score:.2f}")
+    info_table.add_row("", f"[bold]Evaluated Files:[/bold] {len(responses)}")
     console.print(info_table)
     console.print()
 
     table = Table(show_lines=True, box=box.SIMPLE_HEAVY, row_styles=["none", "dim"])
     table.add_column("File", style="cyan", no_wrap=True)
+    table.add_column("Language", style="dim", no_wrap=True)
     table.add_column("[bold]Temporal Score[/bold]", justify="center", style="magenta")
 
     for r in responses[:5]:
@@ -147,6 +148,7 @@ def render_repo_evaluation(
         color_name = style.color.name if style.color else "white"
         table.add_row(
             r.file_path,
+            getattr(r, "language", "python"),
             f"[bold {color_name}]{emoji} {formatted_score}[/bold {color_name}]",
         )
 

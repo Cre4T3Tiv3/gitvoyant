@@ -26,7 +26,7 @@ providing a hierarchical command structure with subcommands for different
 analysis modes and utility functions.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -37,10 +37,10 @@ import typer
 from gitvoyant.cli.analyze import analyze_app
 from gitvoyant.cli.banner import print_banner
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
-app = typer.Typer(help="🧠 GitVoyant - Temporal Intelligence for Repositories")
+app = typer.Typer(help="GitVoyant -- Temporal Intelligence for Repositories")
 app.add_typer(analyze_app, name="analyze", help="Perform repository analysis tasks.")
 
 analyze_app = typer.Typer()

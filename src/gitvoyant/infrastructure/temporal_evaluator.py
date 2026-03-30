@@ -27,11 +27,10 @@ files using cyclomatic complexity metrics, temporal pattern recognition, and
 statistical trend analysis to identify files at risk of quality degradation.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
-import ast
 import logging
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -42,9 +41,12 @@ import git
 import numpy as np
 import pandas as pd
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
+from gitvoyant.infrastructure.analyzers import get_analyzer
+from gitvoyant.infrastructure.analyzers.base import Analyzer
+from gitvoyant.infrastructure.analyzers.python import PythonAnalyzer
 from gitvoyant.infrastructure.config import get_settings
 
 logger = logging.getLogger(__name__)
@@ -114,7 +116,7 @@ class TemporalEvaluator:
         window_days (int): Analysis window in days for temporal evaluation.
     """
 
-    def __init__(self, repository_path: str, window_days: int = 180) -> None:
+    def __init__(self, repository_path: str, window_days: int = 180, analyzer: Optional[Analyzer] = None) -> None:
         """Initialize the temporal evaluator for a specific repository.
 
         Sets up Git repository access and configures the analysis window for
@@ -156,7 +158,22 @@ class TemporalEvaluator:
             raise
 
         self.window_days = window_days
+        self._default_analyzer = analyzer
         logger.debug(f"Analysis window set to {window_days} days")
+
+    def _resolve_analyzer(self, file_path: str) -> Analyzer:
+        """Resolve the language analyzer for a given file path.
+
+        Uses the explicitly provided analyzer if one was passed at init,
+        otherwise looks up the registry by file extension, falling back
+        to PythonAnalyzer for backward compatibility.
+        """
+        if self._default_analyzer is not None:
+            return self._default_analyzer
+        resolved = get_analyzer(file_path)
+        if resolved is not None:
+            return resolved
+        return PythonAnalyzer()
 
     def evaluate_file_evolution(self, file_path: str) -> Dict:
         """Evaluate temporal evolution of a specific file's complexity and quality.
@@ -240,6 +257,9 @@ class TemporalEvaluator:
             )
             return {"error": error_message}
 
+        analyzer = self._resolve_analyzer(file_path)
+        logger.debug(f"Using {analyzer.language_name} analyzer for {file_path}")
+
         logger.debug("Extracting temporal metrics from commits")
         evolution_data = []
         computed_commits = 0
@@ -248,7 +268,7 @@ class TemporalEvaluator:
             try:
                 content = self._get_file_at_commit(commit, relative_path)
                 if content:
-                    metrics = self._extract_metrics(content, commit)
+                    metrics = analyzer.extract_metrics(content, commit)
                     evolution_data.append(metrics)
                     computed_commits += 1
             except Exception as e:
@@ -441,94 +461,6 @@ class TemporalEvaluator:
             )
             return None
 
-    def _extract_metrics(self, content: str, commit) -> Dict:
-        """Extract complexity and structural metrics from file content.
-
-        Parses Python source code to compute cyclomatic complexity and
-        count structural elements like functions and classes. Provides
-        the foundational metrics for temporal trend analysis.
-
-        Args:
-            content (str): Python source code content to analyze.
-            commit: GitPython commit object for metadata extraction.
-
-        Returns:
-            Dict: Metrics dictionary containing:
-                - timestamp (datetime): Commit timestamp
-                - complexity (int): Cyclomatic complexity score
-                - lines_of_code (int): Total lines in the file
-                - function_count (int): Number of function definitions
-                - class_count (int): Number of class definitions
-                - author (str): Commit author name
-                - commit_hash (str): Full commit SHA hash
-
-        Note:
-            Syntax errors in the source code result in zero complexity
-            and structural counts, allowing analysis to continue with
-            partial data rather than failing completely.
-        """
-        try:
-            tree = ast.parse(content)
-            complexity = self._cyclomatic_complexity(tree)
-            function_count = len(
-                [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]
-            )
-            class_count = len(
-                [n for n in ast.walk(tree) if isinstance(n, ast.ClassDef)]
-            )
-
-        except SyntaxError as e:
-            logger.debug(f"Syntax error in commit {commit.hexsha[:8]}: {e}")
-            complexity = 0
-            function_count = 0
-            class_count = 0
-
-        return {
-            "timestamp": commit.committed_datetime,
-            "complexity": complexity,
-            "lines_of_code": len(content.splitlines()),
-            "function_count": function_count,
-            "class_count": class_count,
-            "author": commit.author.name,
-            "commit_hash": commit.hexsha,
-        }
-
-    def _cyclomatic_complexity(self, tree) -> int:
-        """Calculate cyclomatic complexity of a Python AST.
-
-        Implements cyclomatic complexity calculation by counting decision
-        points in the code including conditionals, loops, boolean operations,
-        and exception handlers. Uses the standard formula starting with
-        base complexity of 1.
-
-        Args:
-            tree: Python AST (Abstract Syntax Tree) to analyze.
-
-        Returns:
-            int: Cyclomatic complexity score, where higher values indicate
-                more complex code with more decision paths.
-
-        Note:
-            The implementation counts:
-            - If statements, while loops, for loops (including async)
-            - Boolean operations (and/or) based on operand count
-            - Exception handlers (except clauses)
-
-            This provides a standard cyclomatic complexity metric suitable
-            for tracking complexity trends over time.
-        """
-        complexity = 1
-
-        for node in ast.walk(tree):
-            if isinstance(node, (ast.If, ast.While, ast.For, ast.AsyncFor)):
-                complexity += 1
-            elif isinstance(node, ast.BoolOp):
-                complexity += len(node.values) - 1
-            elif isinstance(node, ast.ExceptHandler):
-                complexity += 1
-
-        return complexity
-
     def _compute_temporal_discernment(
         self, evolution_data: List[Dict], file_path: str
     ) -> Dict:
@@ -711,7 +643,7 @@ if __name__ == "__main__":
         level=logging.INFO, format="%(levelname)s - %(name)s - %(message)s"
     )
 
-    logger.info("🔮 GitVoyant Temporal Code Intelligence v0.2.0")
+    logger.info("GitVoyant Temporal Code Intelligence v0.3.0")
     logger.info("This is just the beginning...")
     logger.info("")
     logger.info("Module loaded successfully. Key components:")

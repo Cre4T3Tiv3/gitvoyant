@@ -18,7 +18,7 @@ Module: src/gitvoyant/application/agent_runtime.py
 GitVoyant Agent Runtime Module
 
 Provides the core agent runtime infrastructure for GitVoyant's AI-powered
-repository analysis capabilities using LangGraph and Claude AI integration.
+repository analysis capabilities using LangGraph and LLM integration.
 
 This module creates a conversational agent that can perform temporal analysis
 and repository evaluation through natural language interactions, leveraging
@@ -26,11 +26,11 @@ specialized tools for Git repository inspection and code quality assessment.
 
 Dependencies:
     - LangChain/LangGraph for agent orchestration
-    - Anthropic Claude for natural language processing
+    - Anthropic LLM for natural language processing
     - Custom GitVoyant use cases and tools
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -50,7 +50,7 @@ from gitvoyant.presentation.agents.langchain_bindings import (
     make_temporal_analysis_tool,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 settings = get_settings()
@@ -97,11 +97,11 @@ def suppress_stdout():
 
 
 def create_gitvoyant_agent():
-    """Create a LangGraph ReAct agent with Claude AI and GitVoyant tools.
+    """Create a LangGraph ReAct agent with GitVoyant tools.
 
     Initializes and configures a conversational AI agent capable of performing
     repository analysis, temporal evaluation, and code quality assessment through
-    natural language interactions. The agent uses Claude AI for language processing
+    natural language interactions. The agent uses an LLM for language processing
     and specialized GitVoyant tools for repository analysis.
 
     Returns:
@@ -109,7 +109,7 @@ def create_gitvoyant_agent():
 
     Note:
         The agent is configured with:
-        - Claude AI model (version specified in settings)
+        - AI model (version specified in settings)
         - Temporal analysis tools for file-level evaluation
         - Repository evaluation tools for holistic assessment
         - System prompt optimized for concise, insightful responses
@@ -120,9 +120,11 @@ def create_gitvoyant_agent():
         >>> print(result["output"])
     """
 
+    llm_config = settings.get_claude_config()
     claude = ChatAnthropic(
-        model_name=settings.claude_model,
-        temperature=settings.claude_temperature,
+        model_name=llm_config["model"],
+        temperature=llm_config["temperature"],
+        max_tokens=llm_config["max_tokens"],
         timeout=60,
         stop=None,
     )
@@ -140,7 +142,7 @@ def create_gitvoyant_agent():
     def run_agent(state: GitVoyantAgentState) -> GitVoyantAgentState:
         """Execute agent processing for a single conversation turn.
 
-        Processes user input through the Claude AI agent, managing tool execution
+        Processes user input through the AI agent, managing tool execution
         and response formatting. Handles verbose output control and error recovery.
 
         Args:
@@ -151,7 +153,7 @@ def create_gitvoyant_agent():
             GitVoyantAgentState: Updated state with agent's response output.
 
         Note:
-            The function handles multiple response formats from Claude:
+            The function handles multiple response formats from the LLM:
             - Simple string responses
             - Complex structured responses with tool calls
             - Multi-part responses combining text and tool usage
@@ -171,7 +173,7 @@ def create_gitvoyant_agent():
         ]
 
         if settings.verbose_mode:
-            print(f"\n⚙️ Invoking Claude with: \033[96m{state['input']}\033[0m")
+            print(f"\n> Invoking agent with: \033[96m{state['input']}\033[0m")
 
         if settings.verbose_mode:
             response = raw_agent_node.invoke({"messages": messages})
@@ -180,7 +182,7 @@ def create_gitvoyant_agent():
                 response = raw_agent_node.invoke({"messages": messages})
 
         if settings.verbose_mode:
-            print("📬 Raw Claude response:")
+            print("> Raw agent response:")
 
         ai_response = "[No AI response]"
 
@@ -190,7 +192,7 @@ def create_gitvoyant_agent():
                 if isinstance(content, str):
                     ai_response = content
                     if settings.verbose_mode:
-                        print(f"🧠 Claude says: \033[92m{content}\033[0m")
+                        print(f"> Agent says: \033[92m{content}\033[0m")
                 elif isinstance(content, list):
                     parts = []
                     for part in content:
@@ -199,14 +201,14 @@ def create_gitvoyant_agent():
                                 parts.append(part["text"])
                                 if settings.verbose_mode:
                                     print(
-                                        f"🧠 Claude says: \033[92m{part['text']}\033[0m"
+                                        f"> Agent says: \033[92m{part['text']}\033[0m"
                                     )
                             elif part.get("type") == "tool_use":
                                 tool = part.get("name")
                                 args = part.get("input")
                                 if settings.verbose_mode:
                                     print(
-                                        f"🛠️ Tool called: \033[93m{tool}\033[0m with args \033[93m{args}\033[0m"
+                                        f"> Tool: {tool} called with args \033[93m{args}\033[0m"
                                     )
                     if parts:
                         ai_response = "\n".join(parts)

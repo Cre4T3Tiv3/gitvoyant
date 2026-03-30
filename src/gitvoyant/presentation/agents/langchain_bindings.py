@@ -38,7 +38,7 @@ Key Features:
     - Formatted results optimized for conversational display
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -48,12 +48,13 @@ import sys
 
 from langchain_core.tools import Tool
 
+from gitvoyant.infrastructure.analyzers import is_excluded_dir, supported_extensions
 from gitvoyant.infrastructure.temporal_evaluator import (
     TemporalEvaluator,
     expedited_analysis,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 
@@ -127,7 +128,7 @@ def make_temporal_analysis_tool() -> Tool:
     Example Agent Usage:
         Agent: "I'll analyze the temporal patterns in your main.py file"
         Tool Call: temporal_analysis_tool(file_path="src/main.py", repo_path=".")
-        Result: "📊 File: src/main.py\nTrend: -0.15/month\nExposure: LOW | Risk: 0.23"
+        Result: "File: src/main.py\nTrend: -0.15/month\nExposure: LOW | Risk: 0.23"
 
     Note:
         The tool suppresses verbose output from the underlying infrastructure
@@ -166,14 +167,14 @@ def make_temporal_analysis_tool() -> Tool:
                 - Error message if analysis fails
 
         Output Format:
-            Success: "📊 File: {path}\nTrend: {slope}/month\nExposure: {level} | Risk: {forecast}\nCommits evaluated: {count}"
-            Error: "❌ {error_description}"
+            Success: "File: {path}\nTrend: {slope}/month\nExposure: {level} | Risk: {forecast}\nCommits evaluated: {count}"
+            Error: "Error: {error_description}"
 
         Example:
             >>> tool_func = make_temporal_analysis_tool().func
             >>> result = tool_func("src/main.py", "./my-repo", 90)
             >>> print(result)
-            📊 File: src/main.py
+            File: src/main.py
             Trend: -0.15/month
             Exposure: LOW | Risk: 0.23
             Commits evaluated: 12
@@ -181,9 +182,9 @@ def make_temporal_analysis_tool() -> Tool:
         with suppress_stdout():
             result = expedited_analysis(repo_path, file_path, window_days)
         if "error" in result:
-            return f"❌ {result['error']}"
+            return f"Error: {result['error']}"
         return (
-            f"📊 File: {result['file_path']}\n"
+            f"File: {result['file_path']}\n"
             f"Trend: {result['complexity_trend_slope']:+.2f}/month\n"
             f"Exposure: {result['exposure_level']} | Risk: {result['quality_decay_forecast']:.2f}\n"
             f"Commits evaluated: {result['commits_evaluated']}"
@@ -191,7 +192,7 @@ def make_temporal_analysis_tool() -> Tool:
 
     return Tool.from_function(
         name="temporal_analysis_tool",
-        description="Analyze decay risk and complexity trends in a Python file using Git history.",
+        description="Analyze decay risk and complexity trends in a source file using Git history.",
         func=analyze,
     )
 
@@ -228,7 +229,7 @@ def make_repo_evaluation_tool() -> Tool:
     Example Agent Usage:
         Agent: "Let me evaluate the overall quality trends in this repository"
         Tool Call: repo_temporal_intelligence(repo_path=".", max_files=15)
-        Result: "📦 Repository decay risks:\nsrc/api.py: 0.85\nutils/helper.py: 0.72\n..."
+        Result: "Repository decay risks:\nsrc/api.py: 0.85\nutils/helper.py: 0.72\n..."
 
     Note:
         The tool automatically handles file discovery, path resolution,
@@ -276,14 +277,14 @@ def make_repo_evaluation_tool() -> Tool:
             immediate attention and prioritization.
 
         Output Format:
-            Success: "📦 Repository decay risks:\n{file1}: {risk1}\n{file2}: {risk2}\n..."
+            Success: "Repository decay risks:\n{file1}: {risk1}\n{file2}: {risk2}\n..."
             No Files: "No analyzable Python files found."
 
         Example:
             >>> tool_func = make_repo_evaluation_tool().func
             >>> result = tool_func("./my-project", 10)
             >>> print(result)
-            📦 Repository decay risks:
+            Repository decay risks:
             src/api/handlers.py: 0.85
             utils/data_processing.py: 0.72
             core/business_logic.py: 0.68
@@ -295,19 +296,18 @@ def make_repo_evaluation_tool() -> Tool:
             - Error recovery allows partial results on problematic files
             - Output suppression maintains agent interaction performance
         """
+        exts = set(supported_extensions())
+
         with suppress_stdout():
             evaluator = TemporalEvaluator(repo_path)
             results = []
 
             for root, _, files in os.walk(repo_path):
-                if any(
-                    ignored in root
-                    for ignored in [".venv", "site-packages", "__pycache__"]
-                ):
+                if is_excluded_dir(root):
                     continue
 
                 for file in files:
-                    if file.endswith(".py") and len(results) < max_files:
+                    if any(file.endswith(ext) for ext in exts) and len(results) < max_files:
                         full_path = os.path.join(root, file)
                         rel_path = os.path.relpath(full_path, repo_path)
                         if not os.path.exists(os.path.join(repo_path, rel_path)):
@@ -322,14 +322,14 @@ def make_repo_evaluation_tool() -> Tool:
                             continue
 
         if not results:
-            return "No analyzable Python files found."
+            return "No analyzable source files found."
 
         results.sort(key=lambda x: x[1], reverse=True)
         report = "\n".join([f"{path}: {risk:.2f}" for path, risk in results])
-        return f"📦 Repository decay risks:\n{report}"
+        return f"Repository decay risks:\n{report}"
 
     return Tool.from_function(
         name="repo_temporal_intelligence",
-        description="Analyzes all Python files in a Git repo and ranks by decay risk.",
+        description="Analyzes all source files in a Git repo and ranks by decay risk.",
         func=evaluate_repo,
     )

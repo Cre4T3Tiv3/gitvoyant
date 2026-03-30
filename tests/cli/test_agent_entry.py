@@ -27,14 +27,14 @@ environments.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
 
-Version: 0.2.0
+Version: 0.3.0
 
 License: Apache 2.0
 """
 
 import subprocess
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 
@@ -53,7 +53,7 @@ def test_gitvoyant_agent_entry():
 
     Validates:
         - CLI command executes successfully (exit code 0)
-        - Claude agent initializes without errors
+        - AI agent initializes without errors
         - Agent displays expected startup messages
         - Graceful shutdown occurs when 'exit' is sent
         - No timeout or hanging processes
@@ -64,7 +64,7 @@ def test_gitvoyant_agent_entry():
 
     Note:
         This test requires a valid Anthropic API key in the environment
-        for the Claude agent to initialize successfully. The test uses
+        for the AI agent to initialize successfully. The test uses
         a 10-second timeout to prevent hanging in CI environments.
     """
     process = subprocess.Popen(
@@ -82,5 +82,5 @@ def test_gitvoyant_agent_entry():
         raise RuntimeError("Agent CLI did not exit in time.")
 
     assert process.returncode == 0
-    assert "Claude agent initialized" in stdout
+    assert "AI agent initialized" in stdout
     assert "Goodbye" in stdout

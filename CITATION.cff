@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "GitVoyant: Temporal Git Workflow Analysis with Multi-Scale Pattern Detection"
-abstract: "Advanced Git repository analysis framework employing temporal decomposition and multi-scale pattern recognition to extract meaningful development insights from commit histories. Implements windowed analysis with exponential weighting, trend detection via linear regression, and anomaly identification using statistical methods (z-scores, IQR) across configurable time scales. Integrates Claude AI for contextual interpretation of temporal patterns, providing actionable recommendations for workflow optimization, development velocity improvement, and team collaboration enhancement based on scientifically-grounded temporal metrics."
+title: "GitVoyant: Temporal Code Intelligence Platform"
+abstract: "Git repository analysis framework employing temporal decomposition and multi-scale pattern recognition to extract complexity evolution insights from commit histories. Computes cyclomatic complexity at each commit snapshot using language-specific parsers (Python via ast, JavaScript/Java/Go via tree-sitter), fits linear regression to the resulting time series, and classifies trends as IMPROVING, DECLINING, or STABLE with statistical confidence scoring. Supports multi-language analysis across Python, JavaScript, Java, and Go with automatic language detection."
 authors:
   - family-names: "Moses"
     given-names: "Jesse"
@@ -15,25 +15,24 @@ keywords:
   - Git analytics
   - pattern recognition
   - artificial intelligence
-  - Claude AI
+  - cyclomatic complexity
   - time series analysis
-  - workflow optimization
+  - code quality
   - repository metrics
-  - development velocity
   - software engineering
   - anomaly detection
   - trend analysis
+  - multi-language analysis
 license: Apache-2.0
-version: 0.1.0
-date-released: 2025-07-15
+version: 0.3.0
+date-released: 2026-03-29
 preferred-citation:
   type: software
-  title: "GitVoyant: Temporal Git Workflow Analysis with Multi-Scale Pattern Detection"
+  title: "GitVoyant: Temporal Code Intelligence Platform"
   authors:
     - family-names: "Moses"
       given-names: "Jesse"
       orcid: "https://orcid.org/0009-0006-0322-7974"
       affiliation: "ByteStack Labs"
-  year: 2025
+  year: 2026
   url: "https://github.com/Cre4T3Tiv3/gitvoyant"
-  abstract: "A framework for Git repository analysis utilizing temporal decomposition across multiple time scales (daily, weekly, monthly) with exponentially-weighted moving averages, statistical trend detection, and outlier identification. Combines quantitative temporal metrics with Claude AI contextual reasoning to deliver scientifically-validated insights into commit patterns, development rhythms, and collaboration dynamics, enabling data-driven workflow optimization with measurable improvements in team productivity and code quality."

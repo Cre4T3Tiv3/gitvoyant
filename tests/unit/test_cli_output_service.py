@@ -26,7 +26,7 @@ Tests cover both the scoring algorithm and the complete rendering pipeline
 while avoiding side effects from actual terminal output.
 
 Author: Jesse Moses (@Cre4T3Tiv3) <jesse@bytestacklabs.com>
-Version: 0.2.0
+Version: 0.3.0
 License: Apache 2.0
 """
 
@@ -36,7 +36,7 @@ from rich.style import Style
 from gitvoyant.application.dto.evaluation_response import EvaluationResponse
 from gitvoyant.cli.cli_output_service import color_for_score, render_repo_evaluation
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 __author__ = "Jesse Moses (@Cre4T3Tiv3) - jesse@bytestacklabs.com"
 
 
@@ -48,12 +48,12 @@ def test_color_for_score():
     color coding that helps users quickly identify concerning trends.
 
     Score Mapping Logic:
-        - score > 0.25: Green (🟢) - Positive trend, decreasing complexity
-        - score < -0.25: Red (🔴) - Concerning trend, increasing complexity
-        - -0.25 <= score <= 0.25: Yellow (🟡) - Stable, minimal change
+        - score > 0.25: Green ([+]) - Positive trend, decreasing complexity
+        - score < -0.25: Red ([-]) - Concerning trend, increasing complexity
+        - -0.25 <= score <= 0.25: Yellow ([~]) - Stable, minimal change
 
     Validates:
-        - Correct emoji selection for each score range
+        - Correct marker selection for each score range
         - Proper Rich Style object creation with expected colors
         - Bold formatting applied consistently across all ranges
         - Boundary conditions handled correctly
@@ -64,16 +64,16 @@ def test_color_for_score():
         complexity) as positive (green), following GitVoyant's convention
         where negative complexity trends indicate quality improvement.
     """
-    emoji, style = color_for_score(0.3)
-    assert emoji == "🟢"
+    marker, style = color_for_score(0.3)
+    assert marker == "[+]"
     assert style == Style(color="green", bold=True)
 
-    emoji, style = color_for_score(-0.3)
-    assert emoji == "🔴"
+    marker, style = color_for_score(-0.3)
+    assert marker == "[-]"
     assert style == Style(color="red", bold=True)
 
-    emoji, style = color_for_score(0.0)
-    assert emoji == "🟡"
+    marker, style = color_for_score(0.0)
+    assert marker == "[~]"
     assert style == Style(color="yellow", bold=True)
 
 
@@ -114,6 +114,7 @@ def test_render_repo_evaluation_renders(monkeypatch):
         confidence_rank=0.9,
         commits_evaluated=42,
         risk_level="HIGH",
+        language="python",
         description="Quality degradation",
         recommendations=[],
     )
