@@ -63,7 +63,7 @@ check-uv: ## Ensure UV is installed
 
 $(VENV_DIR): check-uv
 	@echo "$(CYAN)Creating virtual environment...$(NC)"
-	$(UV) venv $(VENV_DIR)
+	$(UV) venv $(VENV_DIR) --allow-existing
 
 # Create a marker file to track when dev dependencies are installed
 $(VENV_DIR)/.dev-installed: $(VENV_DIR)

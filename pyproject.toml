@@ -53,8 +53,8 @@ Repository = "https://github.com/Cre4T3Tiv3/gitvoyant"
 [tool.hatch.build.targets.wheel]
 packages = ["src/gitvoyant"]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     # Testing & Code Quality
     "pytest>=7.4.0",
     "pytest-asyncio>=0.23.0",

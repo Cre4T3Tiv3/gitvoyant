@@ -16,7 +16,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    - name: ⚡ Install UV
+    - name: Install UV
       run: |
         curl -LsSf https://astral.sh/uv/install.sh | sh
         echo "$HOME/.cargo/bin" >> $GITHUB_PATH
@@ -47,7 +47,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    - name: ⚡ Install UV
+    - name: Install UV
       run: |
         curl -LsSf https://astral.sh/uv/install.sh | sh
         echo "$HOME/.cargo/bin" >> $GITHUB_PATH
@@ -84,7 +84,7 @@ jobs:
   #     uses: actions/setup-python@v4
   #     with:
   #       python-version: '3.11'
-  #   - name: ⚡ Install UV
+  #   - name: Install UV
   #     run: |
   #       curl -LsSf https://astral.sh/uv/install.sh | sh
   #       echo "$HOME/.cargo/bin" >> $GITHUB_PATH
@@ -110,7 +110,7 @@ jobs:
   #         echo " Testing agent mode with API key..."
   #         timeout 10s gitvoyant analyze agent || true
   #       else
-  #         echo "⚠ Skipping agent tests - no API key available"
+  #         echo "Skipping agent tests - no API key available"
   #       fi
 
   security:
